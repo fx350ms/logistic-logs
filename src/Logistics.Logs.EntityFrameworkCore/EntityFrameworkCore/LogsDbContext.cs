@@ -1,0 +1,17 @@
+﻿using Abp.Zero.EntityFrameworkCore;
+using Logistics.Logs.Authorization.Roles;
+using Logistics.Logs.Authorization.Users;
+using Logistics.Logs.MultiTenancy;
+using Microsoft.EntityFrameworkCore;
+
+namespace Logistics.Logs.EntityFrameworkCore;
+
+public class LogsDbContext : AbpZeroDbContext<Tenant, Role, User, LogsDbContext>
+{
+    /* Define a DbSet for each entity of the application */
+
+    public LogsDbContext(DbContextOptions<LogsDbContext> options)
+        : base(options)
+    {
+    }
+}
