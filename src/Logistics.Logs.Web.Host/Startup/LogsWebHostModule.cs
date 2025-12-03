@@ -32,7 +32,7 @@ namespace Logistics.Logs.Web.Host.Startup
 
         public override void PostInitialize()
         {
-         
+            IocManager.IocContainer.Register(Component.For<EntityAuditLogConsumer>().LifestyleTransient());
             var busControl = Bus.Factory.CreateUsingRabbitMq(config =>
             {
                 config.Host(new Uri("rabbitmq://localhost/"), host =>
@@ -56,7 +56,7 @@ namespace Logistics.Logs.Web.Host.Startup
             IocManager.IocContainer.Register(Component.For<IBus, IBusControl>().Instance(busControl));
 
             busControl.Start();
-            base.PostInitialize();
+            
         }
     }
 }

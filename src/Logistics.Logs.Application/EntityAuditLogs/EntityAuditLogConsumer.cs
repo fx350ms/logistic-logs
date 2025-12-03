@@ -11,38 +11,23 @@ using System.Threading.Tasks;
 
 namespace Logistics.Logs.EntityAuditLogs
 {
-    public class EntityAuditLogConsumer : IConsumer<EntityAuditLogDto>, ITransientDependency
+    public class EntityAuditLogConsumer : IConsumer<EntityAuditLogDto>
     {
-        private readonly IRepository<EntityAuditLog, long> _repository;
+        //  private readonly IRepository<EntityAuditLog, long> _repository;
+        private readonly IEntityAuditLogAppService _entityLogAppService;
 
-        public EntityAuditLogConsumer(IRepository<EntityAuditLog, long> repository)
+        public EntityAuditLogConsumer(IEntityAuditLogAppService entityLogAppService)
         {
-            _repository = repository;
+            //_repository = repository;
+            _entityLogAppService = entityLogAppService;
         }
 
         public async Task Consume(ConsumeContext<EntityAuditLogDto> context)
         {
             var message = context.Message;
-
-            // **Mapping DTO sang Entity**
-            var auditLog = new EntityAuditLog
-            {
-                EntityId = message.EntityId,
-                TenantId = message.TenantId,
-                ServiceName = message.ServiceName,
-                MethodName = message.MethodName,
-                EntityType = message.EntityType,
-                Data = message.Data,
-                CreatationTime = message.CreatationTime,
-                UserId = message.UserId,
-                UserName = message.UserName
-            };
-
-            // **Lưu trữ Entity**
-            await _repository.InsertAsync(auditLog);
-
-            // MassTransit tự động xác nhận (Ack) tin nhắn nếu phương thức kết thúc thành công.
-            // Nếu có lỗi, nó sẽ thử lại hoặc chuyển tin nhắn vào hàng đợi lỗi (Error Queue).
+            await _entityLogAppService.CreateAsync(message);
+            
+            await Task.CompletedTask;
         }
     }
 }

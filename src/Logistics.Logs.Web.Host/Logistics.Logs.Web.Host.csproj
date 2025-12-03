@@ -13,6 +13,11 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Consumers\EntityAuditLogConsumer.cs" />
+    <Compile Remove="Startup\RabbitMqConnection.cs" />
+    <Compile Remove="Startup\RabbitMqLogListener.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Remove="wwwroot\swagger\ui\index.html" />
   </ItemGroup>
   <ItemGroup>
@@ -38,10 +43,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="RabbitMQ.Client" Version="7.2.0" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="wwwroot\swagger\ui\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Consumers\" />
   </ItemGroup>
 </Project>

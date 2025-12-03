@@ -12,10 +12,17 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="RabbitMq\ILogRabbitMqPublisher.cs" />
+    <Compile Remove="RabbitMq\LogMessageDto.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="MassTransit" Version="8.5.5" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.5.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logistics.Logs.Core\Logistics.Logs.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RabbitMq\" />
   </ItemGroup>
 </Project>

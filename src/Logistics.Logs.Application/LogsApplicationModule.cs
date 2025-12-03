@@ -1,7 +1,9 @@
 ﻿using Abp.AutoMapper;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
+using Logistics.Logs.AuditLogs.Dto;
 using Logistics.Logs.Authorization;
+using Logistics.Logs.Entities;
 
 namespace Logistics.Logs;
 
@@ -23,7 +25,13 @@ public class LogsApplicationModule : AbpModule
 
         Configuration.Modules.AbpAutoMapper().Configurators.Add(
             // Scan the assembly for classes which inherit from AutoMapper.Profile
-            cfg => cfg.AddMaps(thisAssembly)
+            cfg =>
+            {
+                cfg.AddMaps(thisAssembly);
+
+                cfg.CreateMap<EntityAuditLogDto, EntityAuditLog>().ReverseMap();
+            }
         );
+
     }
 }

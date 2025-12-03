@@ -70,21 +70,7 @@ namespace Logistics.Logs.Web.Host.Startup
             // Swagger - Enable this line and the related lines in Configure method to enable swagger UI
             ConfigureSwagger(services);
 
-
-            //services.AddMassTransit(mass =>
-            //{
-            //    mass.UsingRabbitMq((context, cfg) =>
-            //    {
-            //        cfg.Host("localhost", "/", h =>
-            //        {
-            //            h.Username("guest");
-            //            h.Password("guest");
-            //        });
-
-            //        cfg.ConfigureEndpoints(context);
-            //    });
-            //});
-
+ 
 
             // Configure Abp and Dependency Injection
             services.AddAbpWithoutCreatingServiceProvider<LogsWebHostModule>(

@@ -1,4 +1,5 @@
-﻿using Abp.Localization;
+﻿using Abp;
+using Abp.Localization;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Runtime.Security;
@@ -8,15 +9,25 @@ using Abp.Zero.Configuration;
 using Logistics.Logs.Authorization.Roles;
 using Logistics.Logs.Authorization.Users;
 using Logistics.Logs.Configuration;
+using Logistics.Logs.Core;
 using Logistics.Logs.Localization;
 using Logistics.Logs.MultiTenancy;
 using Logistics.Logs.Timing;
+using Microsoft.Extensions.Configuration;
 
 namespace Logistics.Logs;
 
 [DependsOn(typeof(AbpZeroCoreModule))]
 public class LogsCoreModule : AbpModule
 {
+    private readonly IConfiguration _configuration;
+
+
+    public LogsCoreModule(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
     public override void PreInitialize()
     {
         Configuration.Auditing.IsEnabledForAnonymousUsers = true;
@@ -36,7 +47,7 @@ public class LogsCoreModule : AbpModule
 
         Configuration.Settings.Providers.Add<AppSettingProvider>();
 
-        Configuration.Localization.Languages.Add(new LanguageInfo("fa", "فارسی", "famfamfam-flags ir"));
+     //   Configuration.Localization.Languages.Add(new LanguageInfo("fa", "فارسی", "famfamfam-flags ir"));
 
         Configuration.Settings.SettingEncryptionConfiguration.DefaultPassPhrase = LogsConsts.DefaultPassPhrase;
         SimpleStringCipher.DefaultPassPhrase = LogsConsts.DefaultPassPhrase;
@@ -45,6 +56,8 @@ public class LogsCoreModule : AbpModule
     public override void Initialize()
     {
         IocManager.RegisterAssemblyByConvention(typeof(LogsCoreModule).GetAssembly());
+
+        ConnectDb.Initialize(_configuration.GetConnectionString(LogsConsts.ConnectionStringName));
     }
 
     public override void PostInitialize()
