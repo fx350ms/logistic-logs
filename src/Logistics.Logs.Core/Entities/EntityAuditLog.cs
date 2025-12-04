@@ -31,6 +31,11 @@ namespace Logistics.Logs.Entities
         public string EntityType { get; set; }
 
         /// <summary>
+        /// Tiêu đề: Kiện hàng #123456 được tạo mới
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         public string Data { get; set; }
@@ -39,6 +44,12 @@ namespace Logistics.Logs.Entities
         /// Ngày tạo
         /// </summary>
         public DateTime CreatationTime { get; set; }
+
+
+        /// <summary>
+        /// Thời gian tạo, mục đích để dễ dàng truy vết, tìm kiếm
+        /// </summary>
+        public long CreatationTimeInt { get; set; }
 
         /// <summary>
         /// Id người dùng thực hiện

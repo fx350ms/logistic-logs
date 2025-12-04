@@ -32,16 +32,23 @@ namespace Logistics.Logs.Web.Host.Startup
 
         public override void PostInitialize()
         {
+
+            var rabbitHost = _appConfiguration["RabbitMQ:Host"];
+            var rabbitUser = _appConfiguration["RabbitMQ:UserName"];
+            var rabbitPass = _appConfiguration["RabbitMQ:Password"];
+            var queueName = _appConfiguration["RabbitMQ:QueueName"];
+
             IocManager.IocContainer.Register(Component.For<EntityAuditLogConsumer>().LifestyleTransient());
+
             var busControl = Bus.Factory.CreateUsingRabbitMq(config =>
             {
-                config.Host(new Uri("rabbitmq://localhost/"), host =>
+                config.Host(new Uri(rabbitHost), host =>
                 {
-                    host.Username("guest");
-                    host.Password("guest");
+                    host.Username(rabbitUser);
+                    host.Password(rabbitPass);
                 });
 
-                config.ReceiveEndpoint(queueName: "repro-service", endpoint =>
+                config.ReceiveEndpoint(queueName: queueName, endpoint =>
                 {
                     endpoint.Handler<EntityAuditLogDto>(async context =>
                     {
@@ -52,6 +59,27 @@ namespace Logistics.Logs.Web.Host.Startup
                     });
                 });
             });
+
+
+            //var busControl = Bus.Factory.CreateUsingRabbitMq(config =>
+            //{
+            //    config.Host(new Uri("rabbitmq://103.173.66.7:5672/"), host =>
+            //    {
+            //        host.Username("pbt");
+            //        host.Password("123qwe!23Qwe");
+            //    });
+
+            //    config.ReceiveEndpoint(queueName: "repro-service", endpoint =>
+            //    {
+            //        endpoint.Handler<EntityAuditLogDto>(async context =>
+            //        {
+            //            using (var consumer = IocManager.ResolveAsDisposable<EntityAuditLogConsumer>(typeof(EntityAuditLogConsumer)))
+            //            {
+            //                await consumer.Object.Consume(context);
+            //            }
+            //        });
+            //    });
+            //});
 
             IocManager.IocContainer.Register(Component.For<IBus, IBusControl>().Instance(busControl));
 

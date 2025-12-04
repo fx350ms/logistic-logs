@@ -30,9 +30,15 @@ namespace Logistics.Logs.AuditLogs.Dto
         public string MethodName { get; set; }
 
         /// <summary>
-        /// Loại thực thể bị ảnh hưởng
+        /// Tên thực thể bị ảnh hưởng: Kiện, bao, đơn hàng,....
         /// </summary>
         public string EntityType { get; set; }
+
+        /// <summary>
+        /// Tiêu đề: Kiện hàng #123456 được tạo mới
+        /// </summary>
+        public string Title { get; set; }
+
 
         /// <summary>
         /// 
@@ -43,6 +49,8 @@ namespace Logistics.Logs.AuditLogs.Dto
         /// Ngày tạo
         /// </summary>
         public DateTime CreatationTime { get; set; }
+
+        public long CreatationTimeInt { get; set; }
 
         /// <summary>
         /// Id người dùng thực hiện

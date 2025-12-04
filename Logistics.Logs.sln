@@ -27,6 +27,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logistics.Logs.Web.Publisher", "src\Logistics.Logs.Web.Publisher\Logistics.Logs.Web.Publisher.csproj", "{5AB3F15C-6447-4B4B-A68E-8F35D3D86CE9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{DA733818-EA36-4503-B769-4DC5A7978BF2}"
+	ProjectSection(SolutionItems) = preProject
+		20251203.sql = 20251203.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
