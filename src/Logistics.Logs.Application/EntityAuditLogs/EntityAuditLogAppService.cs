@@ -91,6 +91,7 @@ public class EntityAuditLogAppService : AsyncCrudAppService<EntityAuditLog, Enti
 
     }
 
+    [HttpGet]
     public async Task<CompareEntityAuditLogDataResultDto> Compare(CompareEntityAuditLogDataRequestDto input)
     {
         var parameters = new[]
