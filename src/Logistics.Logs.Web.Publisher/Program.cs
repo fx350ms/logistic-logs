@@ -14,10 +14,10 @@ namespace Logistics.Logs.Web.Publisher
             {
                 mass.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host("localhost", "/", h =>
+                    cfg.Host("103.173.66.7", "/", h =>
                     {
-                        h.Username("guest");
-                        h.Password("guest");
+                        h.Username("pbt");
+                        h.Password("123qwe!23Qwe");
                     });
 
                     cfg.ConfigureEndpoints(context);

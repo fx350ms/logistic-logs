@@ -6,6 +6,7 @@ using Logistics.Logs.AuditLogs.Dto;
 using Logistics.Logs.Core;
 using Logistics.Logs.Entities;
 using Logistics.Logs.EntityAuditLogs.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -21,6 +22,7 @@ using System.Threading.Tasks;
 
 namespace Logistics.Logs.EntityAuditLogs;
 
+[Authorize]
 public class EntityAuditLogAppService : AsyncCrudAppService<EntityAuditLog, EntityAuditLogDto, long, PagedResultRequestDto, EntityAuditLogDto, EntityAuditLogDto>, IEntityAuditLogAppService
 {
     public EntityAuditLogAppService(IRepository<EntityAuditLog, long> repository)
@@ -28,6 +30,7 @@ public class EntityAuditLogAppService : AsyncCrudAppService<EntityAuditLog, Enti
     {
     }
 
+    [HttpPost]
     public override async Task<EntityAuditLogDto> CreateAsync(EntityAuditLogDto input)
     {
         //var id = await  ConnectDb.ExecuteNonQueryAsync<EntityAuditLogDto>( 
